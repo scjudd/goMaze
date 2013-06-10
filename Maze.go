@@ -3,14 +3,14 @@ import "bytes"
 
 type MazeI interface {
     RuneAt(Position) (rune)
-    GetWidth() int
-    GetHeight() int
+    Width() int
+    Height() int
 }
 
 func ToString(m MazeI) string {
     var buffer bytes.Buffer
-    width := m.GetWidth()
-    height:= m.GetHeight()
+    width := m.Width()
+    height:= m.Height()
     var p Position
     for p.row = 0; p.row < height; p.row++ {
         for p.col = 0; p.col < width; p.col++ {

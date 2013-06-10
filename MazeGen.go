@@ -23,14 +23,14 @@ type Maze struct {
 //Implement the MazeI interface
 func (m *Maze) RuneAt(p Position) rune {
 
-    return m.data[p.row][p.col].GetRune()
+    return m.data[p.row][p.col].Rune()
 }
 
-func (m *Maze) GetWidth() int {
+func (m *Maze) Width() int {
     return m.cols
 }
 
-func (m *Maze) GetHeight() int {
+func (m *Maze) Height() int {
     return m.rows
 }
 //End of MazeI interface.
