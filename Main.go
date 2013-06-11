@@ -7,8 +7,8 @@ func main() {
     var cols = 30
     fmt.Println("Generate.")
 
-    maze := Generate(rows,cols, SpanningTreeGenerator)
-    //maze := Generate(rows,cols, DepthFirstGenerator)
+    //maze := Generate(rows,cols, SpanningTreeGenerator)
+    maze := Generate(rows,cols, DepthFirstGenerator)
     //maze := Generate(rows,cols, RDivGenerator)
 
     fmt.Println(ToString(&maze))

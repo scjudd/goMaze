@@ -198,10 +198,12 @@ func DepthFirstGenerator(m *Maze) {
             neighbors, pos = popRandom(neighbors)
             if !m.data[pos.row][pos.col].enterable {
                 m.connect(p, pos)
+                m.drawWalls(pos)
                 generateFromPosition(pos)
             }
         }
     }
+    m.drawWalls(Position{1,1})
     generateFromPosition(Position{1,1})
 }
 
