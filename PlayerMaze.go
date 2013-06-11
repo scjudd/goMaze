@@ -3,7 +3,7 @@ package main
 type PlayerMaze struct {
     Maze
     player Position
-    bump bool
+    bump   bool
 }
 
 func (maze PlayerMaze) String() string {
@@ -14,7 +14,7 @@ func (maze PlayerMaze) RuneAt(pos Position) rune {
     row := pos.row
     col := pos.col
     if row == maze.player.row {
-        if  col == maze.player.col {
+        if col == maze.player.col {
             if maze.bump {
                 return PLAYER_BUMP
             }
@@ -27,7 +27,7 @@ func (maze PlayerMaze) RuneAt(pos Position) rune {
     return maze.Maze.RuneAt(pos)
 }
 
-func (maze *PlayerMaze) MoveTo (p Position) bool {
+func (maze *PlayerMaze) MoveTo(p Position) bool {
     if maze.data[p.row][p.col].enterable {
         maze.player = p
         maze.data[p.row+1][p.col].seen = true
@@ -42,18 +42,18 @@ func (maze *PlayerMaze) MoveTo (p Position) bool {
     }
     return false
 }
-func (maze *PlayerMaze) MoveRight () bool {
+func (maze *PlayerMaze) MoveRight() bool {
     return maze.MoveTo(maze.player.Right())
 }
 
-func (maze *PlayerMaze) MoveLeft () bool {
+func (maze *PlayerMaze) MoveLeft() bool {
     return maze.MoveTo(maze.player.Left())
 }
 
-func (maze *PlayerMaze) MoveUp () bool {
+func (maze *PlayerMaze) MoveUp() bool {
     return maze.MoveTo(maze.player.Up())
 }
 
-func (maze *PlayerMaze) MoveDown () bool {
+func (maze *PlayerMaze) MoveDown() bool {
     return maze.MoveTo(maze.player.Down())
 }

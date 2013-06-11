@@ -1,4 +1,5 @@
 package main
+
 import "fmt"
 import "time"
 
@@ -8,30 +9,30 @@ func main() {
     fmt.Println("Generate.")
 
     //maze := Generate(rows,cols, SpanningTreeGenerator)
-    maze := Generate(rows,cols, DepthFirstGenerator)
+    maze := Generate(rows, cols, DepthFirstGenerator)
     //maze := Generate(rows,cols, RDivGenerator)
 
     fmt.Println(ToString(&maze))
 
-    pMaze := PlayerMaze{maze, Position{3,3}, false}
-    pMaze.MoveTo(Position{1,1})
+    pMaze := PlayerMaze{maze, Position{3, 3}, false}
+    pMaze.MoveTo(Position{1, 1})
 
     for true {
         fmt.Println(pMaze)
-        c,_ := getCh()
+        c, _ := getCh()
         fmt.Println()
         valid := false
         switch c {
-            case 'w', 65:
-                valid = pMaze.MoveUp()
-            case 'a', 68:
-                valid = pMaze.MoveLeft()
-            case 'd', 67:
-                valid = pMaze.MoveRight()
-            case 's', 66:
-                valid = pMaze.MoveDown()
-            default:
-                valid = true
+        case 'w', 65:
+            valid = pMaze.MoveUp()
+        case 'a', 68:
+            valid = pMaze.MoveLeft()
+        case 'd', 67:
+            valid = pMaze.MoveRight()
+        case 's', 66:
+            valid = pMaze.MoveDown()
+        default:
+            valid = true
         }
         if !valid {
             pMaze.bump = true
@@ -42,4 +43,5 @@ func main() {
         }
     }
 }
+
 // ☺

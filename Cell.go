@@ -1,8 +1,8 @@
 package main
 
 type Cell struct {
-    rune rune
-    seen bool
+    rune      rune
+    seen      bool
     enterable bool
 }
 

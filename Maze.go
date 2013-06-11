@@ -1,8 +1,9 @@
 package main
+
 import "bytes"
 
 type MazeI interface {
-    RuneAt(Position) (rune)
+    RuneAt(Position) rune
     Width() int
     Height() int
 }
@@ -10,7 +11,7 @@ type MazeI interface {
 func ToString(m MazeI) string {
     var buffer bytes.Buffer
     width := m.Width()
-    height:= m.Height()
+    height := m.Height()
     var p Position
     for p.row = 0; p.row < height; p.row++ {
         for p.col = 0; p.col < width; p.col++ {
@@ -20,4 +21,3 @@ func ToString(m MazeI) string {
     }
     return buffer.String()
 }
-
