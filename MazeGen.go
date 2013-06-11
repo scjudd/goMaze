@@ -173,6 +173,7 @@ func SpanningTreeGenerator(m *Maze) {
     var posList = []Position{}
     var pos Position
     posList = append(posList, Position{1,1})
+    m.drawWalls(Position{1,1})
     for len(posList)!= 0 {
         posList, pos = popRandom(posList)
 
@@ -182,6 +183,7 @@ func SpanningTreeGenerator(m *Maze) {
             _, neighbor := popRandom(neighbors)
 
             m.connect(pos, neighbor)
+            m.drawWalls(neighbor)
             posList = append(posList, pos, neighbor)
         }
     }
