@@ -61,6 +61,76 @@ func (m Maze) getNeighbors(pos Position) []Position {
     return out
 }
 
+func (maze *Maze) drawWalls(origin Position) {
+
+    edgeWall := func(wall Position) {
+        cell := maze.data[wall.row][wall.col]
+
+        if !cell.enterable {
+            if origin.row == wall.row {
+                cell.rune = V_WALL
+            } else if origin.col == wall.col {
+                cell.rune = H_WALL
+            }
+            maze.data[wall.row][wall.col] = cell
+        }
+    }
+
+    cornerWall := func(wall Position) {
+        cell := maze.data[wall.row][wall.col]
+
+        top := wall.row-1 <= 0 || maze.data[wall.row-1][wall.col].enterable
+        right := wall.col+1 >= maze.Width() || maze.data[wall.row][wall.col+1].enterable
+        bottom := wall.row+1 >= maze.Height() || maze.data[wall.row+1][wall.col].enterable
+        left := wall.col-1 <= 0 || maze.data[wall.row][wall.col-1].enterable
+
+        switch {
+        case !top && right && !bottom && left:
+            cell.rune = V_WALL
+        case top && !right && bottom && !left:
+            cell.rune = H_WALL
+        case top && !right && !bottom && left:
+            cell.rune = TL_CORNER
+        case top && right && !bottom && !left:
+            cell.rune = TR_CORNER
+        case !top && right && bottom && !left:
+            cell.rune = BR_CORNER
+        case !top && !right && bottom && left:
+            cell.rune = BL_CORNER
+        case top && !right && !bottom && !left:
+            cell.rune = T_INTERSECT
+        case !top && right && !bottom && !left:
+            cell.rune = R_INTERSECT
+        case !top && !right && bottom && !left:
+            cell.rune = B_INTERSECT
+        case !top && !right && !bottom && left:
+            cell.rune = L_INTERSECT
+        case !top && !right && !bottom && !left:
+            cell.rune = C_INTERSECT
+        case !top && right && bottom && left:
+            cell.rune = T_STUB
+        case top && !right && bottom && left:
+            cell.rune = R_STUB
+        case top && right && !bottom && left:
+            cell.rune = B_STUB
+        case top && right && bottom && !left:
+            cell.rune = L_STUB
+        }
+
+        maze.data[wall.row][wall.col] = cell
+    }
+
+    edgeWall(Position{origin.row-1, origin.col})
+    edgeWall(Position{origin.row, origin.col+1})
+    edgeWall(Position{origin.row+1, origin.col})
+    edgeWall(Position{origin.row, origin.col-1})
+
+    cornerWall(Position{origin.row-1,origin.col-1})
+    cornerWall(Position{origin.row-1,origin.col+1})
+    cornerWall(Position{origin.row+1,origin.col+1})
+    cornerWall(Position{origin.row+1,origin.col-1})
+}
+
 func (maze *Maze) connect(p1, p2 Position) {
     cell :=  maze.data[p1.row][p1.col]
     cell.rune = OPEN
